@@ -32,7 +32,7 @@ def distance():
 def loop():
 	while True:
 		dis = distance()
-		print dis, 'cm'
+		print (dis, 'cm')
 		time.sleep(1)
 
 def destroy():
