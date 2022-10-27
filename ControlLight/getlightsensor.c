@@ -69,5 +69,3 @@ int main(void) {
     }
     return 0;
 }
-# gcc -o getlightsensor getlightsensor.c -lwiringPi
-# sudo ./getlightsensor
