@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import paho.mqtt.client as mqtt
 import time
-import json
 import RPi.GPIO as GPIO
 
 def on_connect(client, userdata, flags, rc):
@@ -20,10 +19,14 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_disconnect = on_disconnect
 client.on_publish = on_publish
-client.connect('192.168.0.58', 1883)
+client.connect('10.3.60.134', 1883)
 
-TRIG = 17
-ECHO = 18	
+TRIG = 18
+ECHO = 5	
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(TRIG, GPIO.OUT)
+GPIO.setup(ECHO, GPIO.IN)
 
 def distance():
 	GPIO.output(TRIG, 0)
@@ -43,19 +46,16 @@ def distance():
 	during = time2 - time1
 	return during * 340 / 2 * 100
 
-client.loop_start()
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(TRIG, GPIO.OUT)
-GPIO.setup(ECHO, GPIO.IN)
+client.loop_start()
 
 while True:
     dis = distance()
     print (dis, 'cm')
-    client.publish('test/hello', int(dis), 1)
+    client.publish('ultraCarKeeper', int(dis), 1)
     time.sleep(1)
-
-GPIO.cleanup()
 
 client.loop_stop()
 client.disconnect()
+
+GPIO.cleanup()
