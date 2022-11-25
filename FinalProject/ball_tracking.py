@@ -1,52 +1,108 @@
-# 필요한 패키지 import
-from collections import deque
-from imutils.video import VideoStream
-# import pigpio as io # 서보모터를 좀 더 부드럽게 제어
 import numpy as np
-import argparse
 import cv2
+import pigpio as io # 서보모터를 좀 더 부드럽게 제어
 import time # 하드웨어 웜업과 라즈베리 파이 과부하 방지
 
-# 인자 정의 및 인자 파싱 코드(버퍼 정의)
-ap = argparse.ArgumentParser()
-ap.add_argument("-b", "--buffer", type=int, default=64,
-    help="max buffer size")
-args = vars(ap.parse_args())
+# 프로그램 실행 전 아래 명령어 실행
+# sudo pigpiod
 
-# 테니스 공의 색깔인 연두색의 범위를 정의
-# HSV 컬러 범위에 있는 공이면 트랙 포인트 리스트(버퍼)를 초기화 한다.
-# 버퍼의 자료구조는 deque이고 최대 길이는 위 인자에서 제시한 값으로 된다.
-greenLower = (29, 86, 6)
-greenUpper = (64, 255, 255)
-pts = deque(maxlen=args["buffer"])
+# 영상 세팅 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+print("Setting camera...")
+
+global WIDTH
+global HEIGHT
+global BOX_HALF
+global center
+global GREEN_LOWER
+global GREEN_UPPER
 
 cap = cv2.VideoCapture(0)
 
 # 화면크기 조정
-w = 640
-h = 480
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, w)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, h)
+WIDTH = 640
+HEIGHT = 480
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
 
-# 화면의 센터 값 계산 
-centerX = w//2
-centerY = h//2
-center = [centerX, centerY]   
-bound_half = 30
+# 박스 바운더리 설정
+BOX_HALF = 30
 
-# 트래킹 시작 전 하드웨어(비디오, 카메라) 웜업
-time.sleep(2.0)
+# 화면의 센터 값 계산(나중에는 공의 중심값 좌표가 들어감)
+center = [WIDTH//2, HEIGHT//2]   
 
-# 트래킹 시작
+# 테니스 공의 색깔인 연두색의 범위를 정의
+GREEN_LOWER = (29, 86, 6)
+GREEN_UPPER = (64, 255, 255)
+
+# 카메라 웜업
+time.sleep(1.0)
+
+# Pigpio 세팅 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+print("Setting pigpio...")
+
+global x_pi
+global y_pi
+global x_servo
+global y_servo
+global UNIT
+
+UNIT = 0.3 # 움직일 단위 설정
+
+# 서보모터 각도 계산 및 변환
+def SetServo(angle): 
+    val = 600 + 10 * angle
+    return val
+
+# 서보모터 방향 조절
+def setServoDirec():
+    if (center[0] > WIDTH//2 + BOX_HALF):
+        x_servo += UNIT
+    elif (center[0] < WIDTH//2 - BOX_HALF):
+        x_servo -= UNIT
+        
+    if (center[1] < HEIGHT//2 + BOX_HALF):
+        y_servo -= UNIT
+    elif (center[1] > HEIGHT//2 - BOX_HALF):
+        y_servo += UNIT
+
+    # if the servo degree is outside its range
+    if (x_servo >= 180):
+        x_servo = 180
+    elif (x_servo <= 0):
+        x_servo = 0
+    
+    if (y_servo >= 180):
+        y_servo = 180
+    elif (y_servo <= 0):
+        y_servo = 0
+
+    x_pi.set_servo_pulsewidth(27,SetServo(x_servo))
+    y_pi.set_servo_pulsewidth(17,SetServo(y_servo))
+    
+# 서보모터 제어 구조체
+# x_pi = io.pi()
+# y_pi = io.pi()
+
+# 서보모터 초기 값 설정
+x_servo = 50
+y_servo = 80
+# x_pi.set_servo_pulsewidth(27,SetServo(x_servo))
+# y_pi.set_servo_pulsewidth(17,SetServo(y_servo))
+
+# 서보모터 웜업
+time.sleep(1.0)
+
+# 트래킹 시작 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 while True:
-    # 실시간 처리를 위해, 라즈베리 과부하 방지를 위해 초당 15 프레임 처리하도록 설정
+    
+    # 실시간 처리를 위해, 라즈베리 과부하 방지를 위해 
+    # 초당 15 프레임 처리하도록 설정
     time.sleep(0.07)
+    
+    reg,frame = cap.read() # 현재 프레임을 읽는다.
+    frame=cv2.flip(frame,1) # 좌우가 뒤바뀌는 것을 방지
 
-    # 현재 프레임을 읽는다.
-    reg,frame = cap.read()
-
-    # 읽은 프레임이 없는 경우 종료(T/F)
-    if not reg:
+    if not reg: # 읽은 프레임이 없는 경우 종료(T/F)
         break
 
     # 영상을 블러처리하고 HSV color space로 변환
@@ -56,7 +112,7 @@ while True:
     # 위에서 정의한 연두색 마스크를 구성한다.
     # a series of dilations and erosions to remove any small
     # blobs left in the mask
-    mask = cv2.inRange(hsv, greenLower, greenUpper)
+    mask = cv2.inRange(hsv, GREEN_LOWER, GREEN_UPPER)
     mask = cv2.erode(mask, None, iterations=2)
     mask = cv2.dilate(mask, None, iterations=2)
 
@@ -66,50 +122,31 @@ while True:
         cv2.CHAIN_APPROX_SIMPLE)
     cnts = cnts[0]
     center = None
-
-    # only proceed if at least one contour was found
-    if len(cnts) > 0:
+    
+    if len(cnts) > 0: # 하나의 컨투어라도 찾으면 실행
         # find the largest contour in the mask, then use
-        # it to compute the minimum enclosing circle and
-        # centroid
+        # it to compute the minimum enclosing circle and centroid
         c = max(cnts, key=cv2.contourArea)
         ((x, y), radius) = cv2.minEnclosingCircle(c)
         M = cv2.moments(c)
-        center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-
-        # only proceed if the radius meets a minimum size
-        if radius > 10:
-            # draw the circle and centroid on the frame,
-            # then update the list of tracked points
-            cv2.circle(frame, (int(x), int(y)), int(radius),
-                (0, 255, 255), 2)
-            cv2.circle(frame, center, 5, (0, 0, 255), -1)
-
-    # 큐에는 버퍼 크기만큼 과거의 센터 위치 정보들이 담겨있다.
-    pts.appendleft(center)
-
-    # loop over the set of tracked points
-    # for i in range(1, len(pts)):
-        # if either of the tracked points are None, ignore
-        # them
-        # if pts[i - 1] is None or pts[i] is None:
-            # continue
-
-        # otherwise, compute the thickness of the line and
-        # draw the connecting lines
-        # thickness = int(np.sqrt(args["buffer"] / float(i + 1)) * 2.5)
-        # cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
-    
-    # 움직이지 않아도 되는 범위 설정(흔들림 방지)
-    cv2.rectangle(frame,(center[0]-bound_half,center[1]-bound_half),
-                 (center[0]+bound_half,center[1]+bound_half),
+        center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))   
+        
+        if radius > 10: # 공이 인식되고 반지름이 최솟값 이상일 경우 트래킹 동작
+            cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2) # 공의 윤곽선        
+            cv2.circle(frame, center, 5, (0, 0, 255), -1) # 공의 중심점
+            
+            setServoDirec() # 박스 바운더리 안에 오도록 트래킹 방향 계산
+            
+    # 움직이지 않아도 되는 범위 보여주기(흔들림 방지)
+    cv2.rectangle(frame,(WIDTH//2-BOX_HALF,HEIGHT//2-BOX_HALF),
+                 (WIDTH//2+BOX_HALF,HEIGHT//2+BOX_HALF),
                   (255,255,255),2)
     
     # 각종 표시가 들어간 프레임을 출력
-    cv2.imshow("Frame", frame)
-    key = cv2.waitKey(1) & 0xFF
+    cv2.imshow("Ball Tracking 20191987 이세희", frame)
 
     # 'q'키를 누르면 while문을 종료한다.
+    key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         break
 
