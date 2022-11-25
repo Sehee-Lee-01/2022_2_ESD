@@ -19,13 +19,14 @@ global GREEN_UPPER
 cap = cv2.VideoCapture(0)
 
 # 화면크기 조정
-WIDTH = 640
-HEIGHT = 480
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
+WIDTH = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+HEIGHT = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+# cap.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
+# cap.set(cv2.CAP_PROP_FRAME_HEIGHT, HEIGHT)
+print("WIDTH: " + str(WIDTH) + " HEIGHT: " + str(HEIGHT))
 
 # 박스 바운더리 설정
-BOX_HALF = 30
+BOX_HALF = 20
 
 # 화면의 센터 값 계산(나중에는 공의 중심값 좌표가 들어감)
 center = [WIDTH//2, HEIGHT//2]   
@@ -40,54 +41,25 @@ time.sleep(1.0)
 # Pigpio 세팅 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 print("Setting pigpio...")
 
-global x_pi
-global y_pi
-global x_servo
-global y_servo
-global UNIT
 
-UNIT = 0.3 # 움직일 단위 설정
+UNIT = 0.7 # 움직일 단위 설정
 
 # 서보모터 각도 계산 및 변환
 def SetServo(angle): 
     val = 600 + 10 * angle
     return val
-
-# 서보모터 방향 조절
-def setServoDirec():
-    if (center[0] > WIDTH//2 + BOX_HALF):
-        x_servo += UNIT
-    elif (center[0] < WIDTH//2 - BOX_HALF):
-        x_servo -= UNIT
-        
-    if (center[1] < HEIGHT//2 + BOX_HALF):
-        y_servo -= UNIT
-    elif (center[1] > HEIGHT//2 - BOX_HALF):
-        y_servo += UNIT
-
-    # if the servo degree is outside its range
-    if (x_servo >= 180):
-        x_servo = 180
-    elif (x_servo <= 0):
-        x_servo = 0
     
-    if (y_servo >= 180):
-        y_servo = 180
-    elif (y_servo <= 0):
-        y_servo = 0
 
-    x_pi.set_servo_pulsewidth(27,SetServo(x_servo))
-    y_pi.set_servo_pulsewidth(17,SetServo(y_servo))
-    
 # 서보모터 제어 구조체
-# x_pi = io.pi()
-# y_pi = io.pi()
+x_pi = io.pi()
+y_pi = io.pi()
 
 # 서보모터 초기 값 설정
-x_servo = 50
-y_servo = 80
-# x_pi.set_servo_pulsewidth(27,SetServo(x_servo))
-# y_pi.set_servo_pulsewidth(17,SetServo(y_servo))
+x_servo = 90
+y_servo = 90
+x_pi.set_servo_pulsewidth(17,SetServo(x_servo))
+y_pi.set_servo_pulsewidth(27,SetServo(y_servo))
+print("set!")
 
 # 서보모터 웜업
 time.sleep(1.0)
@@ -97,10 +69,10 @@ while True:
     
     # 실시간 처리를 위해, 라즈베리 과부하 방지를 위해 
     # 초당 15 프레임 처리하도록 설정
-    time.sleep(0.07)
+    time.sleep(0.01)
     
     reg,frame = cap.read() # 현재 프레임을 읽는다.
-    frame=cv2.flip(frame,1) # 좌우가 뒤바뀌는 것을 방지
+    frame=cv2.flip(frame,1)  
 
     if not reg: # 읽은 프레임이 없는 경우 종료(T/F)
         break
@@ -134,8 +106,35 @@ while True:
         if radius > 10: # 공이 인식되고 반지름이 최솟값 이상일 경우 트래킹 동작
             cv2.circle(frame, (int(x), int(y)), int(radius), (0, 255, 255), 2) # 공의 윤곽선        
             cv2.circle(frame, center, 5, (0, 0, 255), -1) # 공의 중심점
+            print("Ball!")
+            print("y: ", center[0] , " x: ", center[1])
             
-            setServoDirec() # 박스 바운더리 안에 오도록 트래킹 방향 계산
+            # 박스 바운더리 안에 오도록 트래킹 방향 계산
+            if (center[0] > WIDTH//2 + BOX_HALF):
+                x_servo += UNIT
+            elif (center[0] < WIDTH//2 - BOX_HALF):
+               x_servo -= UNIT
+                
+            if (center[1] > HEIGHT//2 + BOX_HALF):
+                y_servo += UNIT
+            elif (center[1] < HEIGHT//2 - BOX_HALF):
+                y_servo -= UNIT
+
+            # if the servo degree is outside its range
+            if (x_servo >= 180):
+               x_servo = 180
+            elif (x_servo <= 0):
+                x_servo = 0
+            
+            if (y_servo >= 180):
+                y_servo = 180
+            elif (y_servo <= 0):
+                y_servo = 0
+
+            x_pi.set_servo_pulsewidth(17,SetServo(x_servo))
+            y_pi.set_servo_pulsewidth(27,SetServo(y_servo))
+            print("servo y: ", y_servo , "servo x: ", x_servo)
+
             
     # 움직이지 않아도 되는 범위 보여주기(흔들림 방지)
     cv2.rectangle(frame,(WIDTH//2-BOX_HALF,HEIGHT//2-BOX_HALF),
