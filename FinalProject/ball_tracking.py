@@ -19,10 +19,7 @@ global BOX_HALF
 global center
 global GREEN_LOWER
 global GREEN_UPPER
-global x_servo
-global y_servo
-global x_pi
-global y_pi
+
 
 cap = cv2.VideoCapture(0)
 
@@ -78,6 +75,10 @@ print("Started server on port : ", portNum)
 
 # 트래킹 시작 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 async def streamServe(websocket, path):
+    global x_servo
+    global y_servo
+    global x_pi
+    global y_pi
     print("Client Connected !")
     while True:
         
