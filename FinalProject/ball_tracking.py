@@ -19,6 +19,10 @@ global BOX_HALF
 global center
 global GREEN_LOWER
 global GREEN_UPPER
+global x_servo
+global y_servo
+global x_pi
+global y_pi
 
 cap = cv2.VideoCapture(0)
 
