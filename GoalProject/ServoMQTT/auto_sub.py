@@ -3,9 +3,6 @@ import json
 import RPi.GPIO as GPIO
 import time
 
-
-
-
 ### GPIO setup
 GPIO.setmode(GPIO.BCM)
 
@@ -64,7 +61,7 @@ client.on_disconnect = on_disconnect
 client.on_subscribe = on_subscribe
 client.on_message = on_message       
 
-client.connect('192.168.0.58', 1883)
+client.connect('localhost', 1883) # Mosquitto 브로커가 실행되고 있는 컴퓨터 IP
 client.subscribe('ServoData', 1)
 client.loop_forever()
 
