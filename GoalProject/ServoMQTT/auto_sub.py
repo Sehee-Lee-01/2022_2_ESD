@@ -51,17 +51,13 @@ def on_message(client, userdata, msg):
     global pwm_y
     message = str(msg.payload.decode("utf-8"))
     print(message)
-    
-    # 객체 탐지 유무:obj_flag, x방향, y방향
-    #json_data = json.loads(message)
-    #obj_flag = json_data["obj_flag"]
 
     print("x: ",x)
     print("y: ",y)
     print("message: ",message)
     x = message
-    pwm_x.ChangeDutyCycle(float(x)) # for 반복문에 실수가 올 수 없으므로 /10.0 로 처리함. 
-    #pwm_y.ChangeDutyCycle(float(y)) # for 반복문에 실수가 올 수 없으므로 /10.0 로 처리함.
+    pwm_x.ChangeDutyCycle(float(x))  
+    pwm_y.ChangeDutyCycle(float(y)) 
     
 client.on_connect = on_connect
 client.on_disconnect = on_disconnect
