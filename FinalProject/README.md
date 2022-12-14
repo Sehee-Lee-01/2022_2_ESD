@@ -53,14 +53,16 @@
   - [객체 트래킹 로직 참고 링크](https://www.hackster.io/shubhamsantosh99/face-tracker-using-opencv-and-arduino-55412e)
 
   - 화면 중앙 좌표값과 받은 좌표값 차이로 제어해야할 방향 정하기
-
   - 계산된 방향으로 한 틱마다 정해진 단위로 이동
   
-  - GPIO가 아닌 `pigpio`로 섬세하게 서보모터 제어
-    - pigpio란?
+  - `RPi.GPIO`가 아닌 `pigpio`로 서보모터 떨림 완화
+    - pigpio를 사용하는 이유([링크](https://luigibox.tistory.com/entry/%EB%9D%BC%EC%A6%88%EB%B2%A0%EB%A6%AC%ED%8C%8C%EC%9D%B44-%EC%84%9C%EB%B3%B4%EB%AA%A8%ED%84%B0-SG-90-%EB%96%A8%EB%A6%BC%ED%9D%94%EB%93%A4%EB%A6%BC-jittershaking-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%ED%95%B4%EA%B2%B0-GPIO%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)): 기존 RPi.GPIO와 다르게 pigpio는 로우레벨언어를 사용해 하드웨어 제어와 연산처리를 나누어 줘서 서로 간섭을 하지않게 하여 서보모터 제어시 떨림을 완화할 수 있다.
+    - 프로젝트 실행 전에 `sudo pigpiod` 터미널에 입력
 
 ## 3. 동작 시연
 
 - [시연 영상 링크]()
 
-## 4. 교내 콘텐츠 크리에이터 공모전에 출품여부()
+## 4. 교내 콘텐츠 크리에이터 공모전에 출품여부
+
+- [접수링크](https://playzone.kookmin.ac.kr/user/compe/view.do?currentPageNo=&searchStatus=&searchValue=&dataSeq=1010034&parentSeq=1010034)
