@@ -73,12 +73,3 @@
 ## 3. 동작 시연
 
 https://user-images.githubusercontent.com/85275893/207630639-1223a541-5646-4320-bbcc-064b0bd56a8e.mov
-
-## 4. 교내 콘텐츠 크리에이터 공모전에 출품여부()
-
-- [접수링크](https://playzone.kookmin.ac.kr/user/compe/view.do?currentPageNo=&searchStatus=&searchValue=&dataSeq=1010034&parentSeq=1010034)
-
-<img width="998" alt="image" src="https://user-images.githubusercontent.com/85275893/207635653-33e7a9d1-2419-40c8-abd1-7e687ee4308e.png">
-
-<img width="979" alt="image" src="https://user-images.githubusercontent.com/85275893/207635788-85549a5c-1574-4364-9826-43dc91726e66.png">
-
