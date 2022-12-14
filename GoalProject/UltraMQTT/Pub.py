@@ -1,4 +1,5 @@
 # 라즈베리파이에서 실행, MQTT 프로토콜로 원격 컴퓨터로 초음파 센서 값 송신
+
 import paho.mqtt.client as mqtt
 import time
 import RPi.GPIO as GPIO

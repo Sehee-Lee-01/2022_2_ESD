@@ -1,3 +1,6 @@
+# 라즈베리파이에서 실행, MQTT 프로토콜로 받은 값(범위: 3~12)으로 서보모터 제어
+# X, Y 동일한 각도로 제어
+
 import paho.mqtt.client as mqtt
 import json 
 import RPi.GPIO as GPIO
@@ -45,12 +48,16 @@ def on_message(client, userdata, msg):
     global y
     global pwm_x
     global pwm_y
-    angle = str(msg.payload.decode("utf-8"))
+
+    # 받은 메세지 파싱
+    angle = str(msg.payload.decode("utf-8")) 
     print("angle: ",angle)
-    x = angle
-    y = angle
-    pwm_x.ChangeDutyCycle(float(x))  
-    pwm_y.ChangeDutyCycle(float(y)) 
+
+    # 받은 값으로 서보모터 제어
+    x = float(angle) 
+    y = float(angle)
+    pwm_x.ChangeDutyCycle(x)  
+    pwm_y.ChangeDutyCycle(y) 
     
 client.on_connect = on_connect
 client.on_disconnect = on_disconnect

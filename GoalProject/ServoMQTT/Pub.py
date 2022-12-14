@@ -1,5 +1,6 @@
 # 라즈베리파이가 아닌 컴퓨터에서 실행, MQTT 프로토콜로 팬틸트 제어값 라즈베리파이로 지속적으로 전송
 # 팬틸트 제어값은 X, Y 동일하게 변수 angle 값(범위: 3~12)으로 전송
+
 import paho.mqtt.client as mqtt
 import time
 import json

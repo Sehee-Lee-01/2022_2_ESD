@@ -1,4 +1,5 @@
 # 라즈베리파이가 아닌 컴퓨터에서 실행, MQTT 프로토콜로 라즈베리파이에 연결된 초음파 센서 값 수신
+
 import paho.mqtt.client as mqtt
 
 def on_connect(client, userdata, flags, rc):
