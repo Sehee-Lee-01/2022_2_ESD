@@ -18,7 +18,7 @@ def on_subscribe(client, userdata, mid, granted_qos):
 
 
 def on_message(client, userdata, msg):
-    print("ultraData from RaspberryPi>> "str(msg.payload.decode("utf-8"))) # 라즈베리파이로부터 받은 초음파 센서 값
+    print("ultraData from RaspberryPi>> ",str(msg.payload.decode("utf-8"))) # 라즈베리파이로부터 받은 초음파 센서 값
 
 
 # 새로운 클라이언트 생성
@@ -32,7 +32,7 @@ client.on_message = on_message
 # 로컬 아닌, 원격 mqtt broker에 연결
 # address : broker.hivemq.com
 # port: 1883 에 연결
-client.connect('localhost', 1883) # Mosquitto 브로커가 실행되고 있는 컴퓨터 IP
+client.connect('192.168.137.162', 1883) # Mosquitto 브로커가 실행되고 있는 컴퓨터 IP
 # test/hello 라는 topic 구독
 client.subscribe('ultraData', 1)
 client.loop_forever()

@@ -28,7 +28,7 @@ client.on_connect = on_connect
 client.on_disconnect = on_disconnect
 client.on_publish = on_publish
 
-client.connect('localhost', 1883) # Mosquitto 브로커가 실행되고 있는 컴퓨터 IP
+client.connect('192.168.137.162', 1883) # Mosquitto 브로커가 실행되고 있는 컴퓨터 IP
 
 client.loop_start()
 
