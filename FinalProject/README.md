@@ -57,8 +57,9 @@
 - 테니스공 중앙값 찾은 후 좌표값 받기
 
 - 테니스공 트래킹(pigpio)
+![임시설자료 (7)](https://user-images.githubusercontent.com/85275893/207628656-2803529a-cf6a-4c72-8208-355b4959426f.png)
 
-![임시설자료 (2)](https://user-images.githubusercontent.com/85275893/207603794-78ef0a72-eef4-4c18-96ce-38891b58f54c.png)
+![임시설자료 (8)](https://user-images.githubusercontent.com/85275893/207628675-bde7a0af-5ce7-4484-82b6-3e88acafe46a.png)
 
 - [객체 트래킹 로직 참고 링크](https://www.hackster.io/shubhamsantosh99/face-tracker-using-opencv-and-arduino-55412e)
 
