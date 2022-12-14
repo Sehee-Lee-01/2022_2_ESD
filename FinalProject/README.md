@@ -72,7 +72,7 @@
 
 ## 3. 동작 시연
 
-- [시연 영상 링크]()
+https://user-images.githubusercontent.com/85275893/207630639-1223a541-5646-4320-bbcc-064b0bd56a8e.mov
 
 ## 4. 교내 콘텐츠 크리에이터 공모전에 출품여부
 
