@@ -9,8 +9,8 @@ import time
 ### GPIO setup
 GPIO.setmode(GPIO.BCM)
 
-servo_x_pin = 18
-servo_y_pin = 23
+servo_x_pin = 17
+servo_y_pin = 27
 
 GPIO.setup(servo_x_pin,GPIO.OUT)
 GPIO.setup(servo_y_pin,GPIO.OUT)
