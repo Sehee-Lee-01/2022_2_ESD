@@ -5,7 +5,6 @@ import json
 obj = 1
 cordinate = 3
 FLAG = False
-direc = 0
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -18,7 +17,7 @@ def on_disconnect(client, userdata, flags, rc=0):
 
 def on_publish(client, userdata, mid):
     print("In on_pub callback mid= ", mid)
-    print("direc= ", direc)
+    print("cordinate= ", cordinate)
 
 
 client = mqtt.Client()
@@ -32,9 +31,21 @@ client.loop_start()
 
 while True:
     time.sleep(0.1)
-    direc = input("direction: ")
-    client.publish('test', direc, 1)
-			
+    client.publish('ServoData', cordinate, 1)
+    
+    if FLAG:
+        if cordinate >= 12:
+            FLAG = False
+            continue			
+        cordinate = cordinate + 1
+	
+    else:
+        if cordinate <= 3:
+            FLAG = True
+            continue
+        cordinate = cordinate - 1
+		
+		
 client.loop_stop()
 
 client.disconnect()

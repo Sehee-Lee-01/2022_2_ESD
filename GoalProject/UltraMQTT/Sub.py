@@ -1,5 +1,5 @@
+# 라즈베리파이가 아닌 컴퓨터에서 실행, MQTT 프로토콜로 라즈베리파이에 연결된 초음파 센서 값 수신
 import paho.mqtt.client as mqtt
-
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -17,7 +17,7 @@ def on_subscribe(client, userdata, mid, granted_qos):
 
 
 def on_message(client, userdata, msg):
-    print(str(msg.payload.decode("utf-8")))
+    print("ultraData from RaspberryPi>> "str(msg.payload.decode("utf-8"))) # 라즈베리파이로부터 받은 초음파 센서 값
 
 
 # 새로운 클라이언트 생성
@@ -33,5 +33,5 @@ client.on_message = on_message
 # port: 1883 에 연결
 client.connect('localhost', 1883)
 # test/hello 라는 topic 구독
-client.subscribe('test/hello', 1)
+client.subscribe('ultraData', 1)
 client.loop_forever()

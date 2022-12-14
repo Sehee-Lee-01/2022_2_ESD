@@ -55,9 +55,7 @@ def on_message(client, userdata, msg):
 	
     if obj_flag:
         diff_x = float(json_data["x_flag"])
-        if (abs(diff_x)<=15):
-            pass
-        elif (diff_x > 0):
+        if (diff_x > 0):
             if x <= 0:
                 x = 0
             else:
@@ -69,9 +67,7 @@ def on_message(client, userdata, msg):
                 x = x + 1
             
         diff_y = float(json_data["y_flag"])
-        if (abs(diff_x)<=15):
-            pass
-        elif (diff_y > 0):
+        if (diff_y > 0):
             if y <=0:
                 y = 0
             else:
@@ -82,7 +78,7 @@ def on_message(client, userdata, msg):
             else:
                 y = y + 1
     else:
-        y = 30
+        y = 90
         if (XFLAG == 0):
             if x <= 0:
                 x = 0
@@ -105,8 +101,8 @@ client.on_disconnect = on_disconnect
 client.on_subscribe = on_subscribe
 client.on_message = on_message       
 
-client.connect('192.168.0.58', 1883)
-client.subscribe('test/hello', 1)
+client.connect('10.3.60.134', 1883)
+client.subscribe('ServoData', 1)
 client.loop_forever()
 
  
@@ -118,4 +114,3 @@ pwm_y.stop()
 GPIO.cleanup()
     
     
-

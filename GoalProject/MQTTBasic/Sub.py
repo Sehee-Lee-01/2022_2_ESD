@@ -1,3 +1,4 @@
+# MQTT subscriber(데이터를 받는 쪽) 기본 코드
 import paho.mqtt.client as mqtt
 
 

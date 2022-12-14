@@ -22,8 +22,8 @@ pwm_y = GPIO.PWM(servo_y_pin, 50)
 FLAG = False
 
 
-x = 3
-y = 3
+x = 7.5
+y = 7.5
 
 pwm_x.start(float(x))
 pwm_y.start(float(y))
@@ -50,16 +50,24 @@ def on_message(client, userdata, msg):
     global pwm_x
     global pwm_y
     message = str(msg.payload.decode("utf-8"))
-    print(message)
+    print(message)  
     
-    # 객체 탐지 유무:obj_flag, x방향, y방향
-    #json_data = json.loads(message)
-    #obj_flag = json_data["obj_flag"]
-
+    diff_x = float(message)
+    if (diff_x < 0):
+        if x <=3:
+            x = 3
+        else:
+            x = x - 1
+    else:
+        if x >= 12:
+            x = 12
+        else:
+            x = x + 1
+		
+    
     print("x: ",x)
-    print("y: ",y)
+    # print("y: ",y)
     print("message: ",message)
-    x = message
     pwm_x.ChangeDutyCycle(float(x)) # for 반복문에 실수가 올 수 없으므로 /10.0 로 처리함. 
     #pwm_y.ChangeDutyCycle(float(y)) # for 반복문에 실수가 올 수 없으므로 /10.0 로 처리함.
     
@@ -69,7 +77,7 @@ client.on_subscribe = on_subscribe
 client.on_message = on_message       
 
 client.connect('192.168.0.58', 1883)
-client.subscribe('test', 1)
+client.subscribe('ServoData', 1)
 client.loop_forever()
 
  

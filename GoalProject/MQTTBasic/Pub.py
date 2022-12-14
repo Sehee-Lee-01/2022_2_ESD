@@ -1,3 +1,4 @@
+# MQTT publisher(데이터를 보내는 쪽) 기본 코드
 import paho.mqtt.client as mqtt
 import time
 import json

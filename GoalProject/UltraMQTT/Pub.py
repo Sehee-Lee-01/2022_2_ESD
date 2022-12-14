@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# 라즈베리파이에서 실행, MQTT 프로토콜로 원격 컴퓨터로 초음파 센서 값 송신
 import paho.mqtt.client as mqtt
 import time
 import RPi.GPIO as GPIO
@@ -51,8 +51,8 @@ client.loop_start()
 
 while True:
     dis = distance()
-    print (dis, 'cm')
-    client.publish('ultraCarKeeper', int(dis), 1)
+    print (dis, 'cm') # 초음파 센서 값 확인
+    client.publish('ultraData', int(dis), 1) # 원격 컴퓨터로 초음파 센서 값 보내기
     time.sleep(1)
 
 client.loop_stop()
