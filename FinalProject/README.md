@@ -12,7 +12,7 @@
 
 ## 1. 주제 선택 동기
 
-![임시설자료](https://user-images.githubusercontent.com/85275893/207603710-5782e39d-d87e-4e3e-95cd-f96a63404c62.png)
+![임시설자료 (6)](https://user-images.githubusercontent.com/85275893/207628858-0ac79a5d-6525-4fe6-969c-9cc2a05e103e.png)
 
 - 실시간으로 팬틸트 모터 제어를 해야하는 프로젝트가 이 프로젝트이기도 하고 테니스공을 인식하기위한 영상처리 과정도 흥미로울 것 같아서 이 프로젝트를 진행하게되었습니다.
 
