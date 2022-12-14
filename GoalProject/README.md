@@ -101,7 +101,7 @@ MQTT 프로토콜을 이용하기 위해서는 MQTT Broker 프로그램이 필�
   - [Pub.py](https://github.com/Sehee-Lee-01/2022_2_ESD/blob/main/GoalProject/MQTTBasic/Pub.py)(Publisher): 정보를 보내는 주체에서 실행
   - [Sub.py](https://github.com/Sehee-Lee-01/2022_2_ESD/blob/main/GoalProject/MQTTBasic/Sub.py)(Subscriber): 정보를 받는 주체에서 실행
 
-### 5) 펜틸트 값 송수신 및 원격 제어
+### 5) [펜틸트 값 송수신 및 원격 제어(영상 링크)](https://github.com/Sehee-Lee-01/2022_2_ESD/issues/4)
 
 노트북에서 MQTT 프로토콜을 이용하여 펜틸트 모터 제어 값을 라즈베리파이로 보내 라즈베리파이에 연결된 펜틸트 모터를 간접적으로 제어
 
