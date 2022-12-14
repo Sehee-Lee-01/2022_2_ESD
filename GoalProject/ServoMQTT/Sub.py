@@ -3,9 +3,6 @@ import json
 import RPi.GPIO as GPIO
 import time
 
-
-
-
 ### GPIO setup
 GPIO.setmode(GPIO.BCM)
 
@@ -22,8 +19,8 @@ pwm_y = GPIO.PWM(servo_y_pin, 50)
 FLAG = False
 
 
-x = 7.5
-y = 7.5
+x = 3
+y = 3
 
 pwm_x.start(float(x))
 pwm_y.start(float(y))
@@ -46,30 +43,14 @@ def on_subscribe(client, userdata, mid, granted_qos):
 def on_message(client, userdata, msg):
     global x
     global y
-    global FLAG
     global pwm_x
     global pwm_y
-    message = str(msg.payload.decode("utf-8"))
-    print(message)  
-    
-    diff_x = float(message)
-    if (diff_x < 0):
-        if x <=3:
-            x = 3
-        else:
-            x = x - 1
-    else:
-        if x >= 12:
-            x = 12
-        else:
-            x = x + 1
-		
-    
-    print("x: ",x)
-    # print("y: ",y)
-    print("message: ",message)
-    pwm_x.ChangeDutyCycle(float(x)) # for 반복문에 실수가 올 수 없으므로 /10.0 로 처리함. 
-    #pwm_y.ChangeDutyCycle(float(y)) # for 반복문에 실수가 올 수 없으므로 /10.0 로 처리함.
+    angle = str(msg.payload.decode("utf-8"))
+    print("angle: ",angle)
+    x = angle
+    y = angle
+    pwm_x.ChangeDutyCycle(float(x))  
+    pwm_y.ChangeDutyCycle(float(y)) 
     
 client.on_connect = on_connect
 client.on_disconnect = on_disconnect
