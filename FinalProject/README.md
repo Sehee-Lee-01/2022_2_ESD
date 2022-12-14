@@ -44,7 +44,7 @@
 - 팬틸트에 직접 부착
 - 레이저 방향과 평행
 
-## 2) SW 부문 + 핵심 기술 요소
+## 2) SW 부문 + 핵심 기술 요소([코드 보러가기](https://github.com/Sehee-Lee-01/2022_2_ESD/blob/main/FinalProject/ball_tracking.py))
 
 - 테니스공 인식(`OpenCV`)
 
