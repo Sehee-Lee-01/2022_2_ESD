@@ -12,6 +12,8 @@
 
 ## 1. 주제 선택 동기
 
+![임시설자료](https://user-images.githubusercontent.com/85275893/207603710-5782e39d-d87e-4e3e-95cd-f96a63404c62.png)
+
 - 실시간으로 팬틸트 모터 제어를 해야하는 프로젝트가 이 프로젝트이기도 하고 테니스공을 인식하기위한 영상처리 과정도 흥미로울 것 같아서 이 프로젝트를 진행하게되었습니다.
 
 ## 2. 시스템 구조 및 핵심 기술 요소 소개
@@ -25,6 +27,10 @@
 5) 카메라 모듈: 트래킹해야할 객체 감지를 위한 카메라 **(팬틸트 kit에 부착)**
 
 ## 2) HW 부문
+
+![임시설자료 (3)](https://user-images.githubusercontent.com/85275893/207603825-3e2736dc-25ea-4511-963b-bb3426a9964c.png)
+
+![임시설자료 (4)](https://user-images.githubusercontent.com/85275893/207603866-46429782-dc4f-4787-9c1f-59bfb25b179b.png)
 
 - 서보모터(팬틸트 모터)
   - X, Y 분리하여 제어
@@ -43,6 +49,8 @@
 
 - 테니스공 인식(`OpenCV`)
 
+![임시설자료 (1)](https://user-images.githubusercontent.com/85275893/207603759-0936444d-4efd-4897-bb7c-134d329ba691.png)
+
   - [테니스공 인식 참고 링크](https://pyimagesearch.com/2015/09/14/ball-tracking-with-opencv/)
 
   - HSV 필터 이용하여 테니스공 색깔 분리
@@ -50,6 +58,9 @@
   - 테니스공 중앙값 찾은 후 좌표값 받기
 
 - 테니스공 트래킹(pigpio)
+
+![임시설자료 (2)](https://user-images.githubusercontent.com/85275893/207603794-78ef0a72-eef4-4c18-96ce-38891b58f54c.png)
+
   - [객체 트래킹 로직 참고 링크](https://www.hackster.io/shubhamsantosh99/face-tracker-using-opencv-and-arduino-55412e)
 
   - 화면 중앙 좌표값과 받은 좌표값 차이로 제어해야할 방향 정하기
