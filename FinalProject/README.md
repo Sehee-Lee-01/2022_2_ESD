@@ -24,6 +24,8 @@
 
 ![임시설자료 (4)](https://user-images.githubusercontent.com/85275893/207603866-46429782-dc4f-4787-9c1f-59bfb25b179b.png)
 
+![임시설자료 (5)](https://user-images.githubusercontent.com/85275893/207606636-d990cf7b-d4b1-4ee8-a5a9-396781634d2c.png)
+
 1) 컴퓨팅: `RaspberryPi 4 model b`
 2) 서보모터: `MG90S 2개(x, y 축)` : 카메라가 객체를 따라가도록 제어
 3) 서보 `팬틸트` kit: 서보모터 2개를 잘 세팅할 수 있는 키트
