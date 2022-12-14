@@ -45,12 +45,13 @@
 
   - [테니스공 인식 참고 링크](https://pyimagesearch.com/2015/09/14/ball-tracking-with-opencv/)
 
-  - 객체 박스 좌표값 받기
-
-  - 화면 중앙 좌표값과 받은 좌표값 차이 확인
+  - HSV 필터 이용하여 테니스공 색깔 분리
+  
+  - 테니스공 중앙값 찾은 후 좌표값 받기
 
 - 테니스공 트래킹
   - [객체 트래킹 로직 참고 링크](https://www.hackster.io/shubhamsantosh99/face-tracker-using-opencv-and-arduino-55412e)
 
-  - 화면 중앙 좌표와 테니스공 중앙 좌표값 차이로 방향 제어
+  - 화면 중앙 좌표값과 받은 좌표값 차이로 제어해야할 방향 정하기
+
   - 계산된 방향으로 한 틱마다 정해진 단위로 이동
