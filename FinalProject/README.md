@@ -6,11 +6,9 @@
 
 ### - Function: Track a tennis ball and shoot laser
 
-### - Library: OPENCV
+### - Library: Pigpio, OPENCV
 
-### - Goal: PID servo control for smooth tracking
-
-    * PID 코드 구현하기
+### - Additional Goal: PID servo control for smooth tracking
 
 ## 1. 대표 HW 구성품
 
@@ -24,38 +22,35 @@
 
 ### 1) HW 부문
 
-- 서보모터 트래킹
+- 서보모터(팬틸트 모터)
 
-  - 연결 테스트
-
-  - `pigpio`로 코드 제어
+  - GPIO가 아닌 `pigpio`로 섬세하게 제어
+  - X, Y 분리하여 제어
 
 - 레이저 모듈
 
-  - 연결 테스트
-
-  - on/off 코드 제어
-
+  - 항상 on
+  - 팬틸트에 직접 부착
+  - 카메라 방향과 평행
+  
 - 라즈베리 파이 `카메라`
 
-  - 라즈베리파이 연결 테스트: `dev/video*`로 나오는지 확인
-
-  - `OpenCV` 연결 테스트: VideoCapture 연결 확인
-
-- HW 제작
-
-  - 카메라, 서보모터, 레이저 연결
+  - 항상 on
+  - 팬틸트에 직접 부착
+  - 레이저 방향과 평행
 
 ### 2) SW 부문
 
-- 객체 인식(`OpenCV`)
+- 테니스공 인식(`OpenCV`)
 
-  - 특정 객체(공, 귤 등) 인식하고 박싱하는 코드 제작
+  - [테니스공 인식 참고 링크](https://pyimagesearch.com/2015/09/14/ball-tracking-with-opencv/)
 
   - 객체 박스 좌표값 받기
 
   - 화면 중앙 좌표값과 받은 좌표값 차이 확인
 
-- 객체 트래킹
+- 테니스공 트래킹
+  - [객체 트래킹 로직 참고 링크](https://www.hackster.io/shubhamsantosh99/face-tracker-using-opencv-and-arduino-55412e)
 
-  - 좌표값 차이로 제어
+  - 화면 중앙 좌표와 테니스공 중앙 좌표값 차이로 방향 제어
+  - 계산된 방향으로 한 틱마다 정해진 단위로 이동
