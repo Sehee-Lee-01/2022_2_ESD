@@ -22,9 +22,9 @@
 
 ![임시설자료 (3)](https://user-images.githubusercontent.com/85275893/207603825-3e2736dc-25ea-4511-963b-bb3426a9964c.png)
 
-![임시설자료 (4)](https://user-images.githubusercontent.com/85275893/207603866-46429782-dc4f-4787-9c1f-59bfb25b179b.png)
+![임시설자료 (14)](https://user-images.githubusercontent.com/85275893/207807389-531abd17-ed7f-4354-83f6-dde3016e3de4.png)
 
-![임시설자료 (5)](https://user-images.githubusercontent.com/85275893/207606636-d990cf7b-d4b1-4ee8-a5a9-396781634d2c.png)
+![임시설자료 (15)](https://user-images.githubusercontent.com/85275893/207807402-999378cc-e8fe-4660-8a76-160ac0d90375.png)
 
 1) 컴퓨팅: `RaspberryPi 4 model b`
 2) 서보모터: `MG90S 2개(x, y 축)` : 카메라가 객체를 따라가도록 제어
@@ -48,7 +48,7 @@
 
 - 테니스공 인식(`OpenCV`)
 
-![임시설자료 (1)](https://user-images.githubusercontent.com/85275893/207603759-0936444d-4efd-4897-bb7c-134d329ba691.png)
+![임시설자료 (10)](https://user-images.githubusercontent.com/85275893/207807329-1947a616-5918-45b1-a41c-7f83630e2978.png)
 
 - [테니스공 인식 참고 링크](https://pyimagesearch.com/2015/09/14/ball-tracking-with-opencv/)
 
@@ -57,9 +57,9 @@
 - 테니스공 중앙값 찾은 후 좌표값 받기
 
 - 테니스공 트래킹(pigpio)
-![임시설자료 (7)](https://user-images.githubusercontent.com/85275893/207628656-2803529a-cf6a-4c72-8208-355b4959426f.png)
 
-![임시설자료 (8)](https://user-images.githubusercontent.com/85275893/207628675-bde7a0af-5ce7-4484-82b6-3e88acafe46a.png)
+![임시설자료 (11)](https://user-images.githubusercontent.com/85275893/207807350-45858bfd-0506-4000-974f-2b6461113fa1.png)
+![임시설자료 (12)](https://user-images.githubusercontent.com/85275893/207807356-b0e932c0-9a34-49a3-8f85-1eb3c1cb1ca9.png)
 
 - [객체 트래킹 로직 참고 링크](https://www.hackster.io/shubhamsantosh99/face-tracker-using-opencv-and-arduino-55412e)
 
@@ -70,6 +70,4 @@
   - pigpio를 사용하는 이유([링크](https://luigibox.tistory.com/entry/%EB%9D%BC%EC%A6%88%EB%B2%A0%EB%A6%AC%ED%8C%8C%EC%9D%B44-%EC%84%9C%EB%B3%B4%EB%AA%A8%ED%84%B0-SG-90-%EB%96%A8%EB%A6%BC%ED%9D%94%EB%93%A4%EB%A6%BC-jittershaking-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%ED%95%B4%EA%B2%B0-GPIO%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)): 기존 RPi.GPIO와 다르게 pigpio는 로우레벨언어를 사용해 하드웨어 제어와 연산처리를 나누어 줘서 서로 간섭을 하지않게 하여 서보모터 제어시 떨림을 완화할 수 있다.
   - 프로젝트 실행 전에 `sudo pigpiod` 터미널에 입력
 
-## 3. 동작 시연([유튜브 영상](https://youtu.be/RBfmWmTVJu8))
-
-https://user-images.githubusercontent.com/85275893/207630639-1223a541-5646-4320-bbcc-064b0bd56a8e.mov
+## 3. 동작 시연 링크([유튜브 영상](https://youtu.be/CVtfMwrFZrg))
