@@ -71,3 +71,5 @@
   - 프로젝트 실행 전에 `sudo pigpiod` 터미널에 입력
 
 ## 3. 동작 시연 링크([유튜브 영상](https://youtu.be/CVtfMwrFZrg))
+
+https://user-images.githubusercontent.com/85275893/207807973-f4954919-8c85-4082-98ef-fb4ec7a38327.mov
